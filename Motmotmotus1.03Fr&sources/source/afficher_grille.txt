@@ -1,0 +1,69 @@
+
+void afficher_case(u8 colonnes, u8 lignes, u8 position_cadreX)
+{
+PA_SetMapTileEx(1,2,	5+colonnes - position_cadreX,		9+lignes,	bg2_haut_jeu_commun_Map[5],0,0,0);
+PA_SetMapTileEx(1,2,	5+colonnes+1 - position_cadreX,		9+lignes,	bg2_haut_jeu_commun_Map[6],0,0,0);
+PA_SetMapTileEx(1,2,	5+colonnes - position_cadreX,		9+lignes+1,	bg2_haut_jeu_commun_Map[7],0,0,0);
+PA_SetMapTileEx(1,2,	5+colonnes+1 - position_cadreX,		9+lignes+1,	bg2_haut_jeu_commun_Map[8],0,0,0);
+}
+
+void afficher_cadre_case(u8 nbreCase, u8 position_cadreX)
+{
+	u8 caseX = 0;
+	u8 caseY = 0;
+
+	PA_SetMapTileEx(1,2, 4-position_cadreX, 8, bg2_haut_jeu_commun_Map[2],0,0,0);
+	PA_SetMapTileEx(1,2, 5-position_cadreX, 8, bg2_haut_jeu_commun_Map[3],0,0,0);
+
+	PA_SetMapTileEx(1,2, 16+nbreCase-position_cadreX, 8, bg2_haut_jeu_commun_Map[9],0,0,0);
+	PA_SetMapTileEx(1,2, 17+nbreCase-position_cadreX, 8, bg2_haut_jeu_commun_Map[10],0,0,0);
+
+	for (caseX=0;caseX<(10+nbreCase);caseX++)
+	{
+		PA_SetMapTileEx(1,2, 6+caseX-position_cadreX, 8, bg2_haut_jeu_commun_Map[4],0,0,0);
+	}
+
+	for (caseY=0;caseY<14;caseY++)
+	{
+		PA_SetMapTileEx(1,2,           4-position_cadreX, 9+caseY, bg2_haut_jeu_commun_Map[1],0,0,0);
+		PA_SetMapTileEx(1,2, 17+nbreCase-position_cadreX, 9+caseY, bg2_haut_jeu_commun_Map[11],0,0,0);
+	}
+
+
+}
+
+
+void afficher_grilles(void)
+{
+	PA_LoadSimpleBg(1,2,bg2_haut_jeu_commun_Tiles,Blank,BG_256X256,0,1);
+	PA_LoadBgPal(1, 2, (void*)bg2_haut_jeu_commun_Pal);
+
+	u8 caseX = 0;
+	u8 caseY = 0;
+	u8 nbreCase = 0;
+	u8 position_cadreX = 0;
+
+	if ( nbre_lettres == 6) {nbreCase = 0;} else if ( nbre_lettres == 7) {nbreCase = 2;} 
+	else if ( nbre_lettres == 8) {nbreCase = 4; position_cadreX = 2;}  else if ( nbre_lettres == 9) {nbreCase = 6; position_cadreX = 4;}
+	
+
+	for (caseX=0;caseX<(12+nbreCase);caseX+=2)
+	{
+		for (caseY=0;caseY<14;caseY+=2)
+		{
+			afficher_case( caseX, caseY, position_cadreX);
+		}
+	}
+	afficher_cadre_case(nbreCase, position_cadreX);
+}
+
+
+
+u8 nbreCase = (nbre_lettres - 6) * 2;
+u8 position_cadreX = 0;
+if ( nbre_lettres >= 8) {position_cadreX = (nbre_lettres - 7) * 2;}
+
+
+
+
+

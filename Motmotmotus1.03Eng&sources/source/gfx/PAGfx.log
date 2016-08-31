@@ -1,0 +1,59 @@
+PAGfx Converter, by Mollusk     www.palib.com
+If you have suggestions, problems, or anything, please mail me at mollusk@palib.info
+
+Converting PAGfx.ini
+Transparent Color : Magenta
+
+10 sprites :
+  rond_16x16_choix_nbr_lettre : 256colors, 16x16, Pal : rond_16x16_choix_nbr_lettre_Pal, -> rond_16x16_choix_nbr_lettre_Sprite
+  joueurs_64x64_choix_joueurs : 256colors, 64x128, Pal : joueurs_64x64_choix_joueurs_Pal, -> joueurs_64x64_choix_joueurs_Sprite
+  joueurs_32x32_choix_joueurs_petit : 256colors, 32x64, Pal : joueurs_32x32_choix_joueurs_petit_Pal, -> joueurs_32x32_choix_joueurs_petit_Sprite
+  touche_64x32_choix_lettres : 256colors, 64x64, Pal : touche_64x32_choix_lettres_Pal, -> touche_64x32_choix_lettres_Sprite
+  case_16x16_valide_rouge_jaune : 256colors, 16x32, Pal : case_16x16_valide_rouge_jaune_Pal, -> case_16x16_valide_rouge_jaune_Sprite
+  resul_64x32_solution1_2 : 256colors, 64x32, Pal : resul_64x32_solution1_2_Pal, -> resul_64x32_solution1_2_Sprite
+  resul_64x32_solution2_2 : 256colors, 64x32, Pal : resul_64x32_solution2_2_Pal, -> resul_64x32_solution2_2_Sprite
+  touche_64x32_play_menu : 256colors, 64x192, Pal : touche_64x32_play_menu_Pal, -> touche_64x32_play_menu_Sprite
+  curseur_16x16 : 256colors, 16x80, Pal : curseur_16x16_Pal, -> curseur_16x16_Sprite
+  factice_32x32 : 256colors, 32x32, Pal : factice_32x32_Pal, -> factice_32x32_Sprite
+
+12 backgrounds :
+  bg2_bas_menu0 : TileBg, 256x192, Pal : bg2_bas_menu0_Pal, 1 tiles -> bg2_bas_menu0_Tiles and bg2_bas_menu0_Map
+  bg2_bas_menu1 : TileBg, 256x192, Pal : bg2_bas_menu1_Pal, 26 tiles -> bg2_bas_menu1_Tiles and bg2_bas_menu1_Map
+  bg2_bas_menu2 : TileBg, 256x192, Pal : bg2_bas_menu2_Pal, 37 tiles -> bg2_bas_menu2_Tiles and bg2_bas_menu2_Map
+  bg2_bas_menu3 : TileBg, 256x192, Pal : bg2_bas_menu3_Pal, 30 tiles -> bg2_bas_menu3_Tiles and bg2_bas_menu3_Map
+  bg2_bas_menu4 : TileBg, 256x192, Pal : bg2_bas_menu4_Pal, 28 tiles -> bg2_bas_menu4_Tiles and bg2_bas_menu4_Map
+  bg2_bas_jeu1 : TileBg, 256x192, Pal : bg2_bas_jeu1_Pal, 25 tiles -> bg2_bas_jeu1_Tiles and bg2_bas_jeu1_Map
+  bg2_bas_jeu2 : TileBg, 256x192, Pal : bg2_bas_jeu2_Pal, 25 tiles -> bg2_bas_jeu2_Tiles and bg2_bas_jeu2_Map
+  bg2_bas_jeu3 : TileBg, 256x192, Pal : bg2_bas_jeu3_Pal, 27 tiles -> bg2_bas_jeu3_Tiles and bg2_bas_jeu3_Map
+  bg2_bas_jeu4 : TileBg, 256x192, Pal : bg2_bas_jeu4_Pal, 27 tiles -> bg2_bas_jeu4_Tiles and bg2_bas_jeu4_Map
+  bg2_haut_jeu_commun : TileBg, 256x256, Pal : bg2_haut_jeu_commun_Pal, 45 tiles -> bg2_haut_jeu_commun_Tiles and bg2_haut_jeu_commun_Map
+  bg2_bas_commun_jeux : TileBg, 256x256, Pal : bg2_bas_commun_jeux_Pal, 5 tiles -> bg2_bas_commun_jeux_Tiles and bg2_bas_commun_jeux_Map
+  bg1_chiffres_lettres_grilles : TileBg, 256x256, Pal : bg1_chiffres_lettres_grilles_Pal, 210 tiles -> bg1_chiffres_lettres_grilles_Tiles and bg1_chiffres_lettres_grilles_Map
+
+22 palettes :
+  rond_16x16_choix_nbr_lettre_Pal, 11 colors
+  joueurs_64x64_choix_joueurs_Pal, 212 colors
+  joueurs_32x32_choix_joueurs_petit_Pal, 166 colors
+  touche_64x32_choix_lettres_Pal, 11 colors
+  case_16x16_valide_rouge_jaune_Pal, 3 colors
+  resul_64x32_solution1_2_Pal, 18 colors
+  resul_64x32_solution2_2_Pal, 18 colors
+  touche_64x32_play_menu_Pal, 86 colors
+  curseur_16x16_Pal, 2 colors
+  factice_32x32_Pal, 2 colors
+  bg2_bas_menu0_Pal, 1 colors
+  bg2_bas_menu1_Pal, 23 colors
+  bg2_bas_menu2_Pal, 23 colors
+  bg2_bas_menu3_Pal, 23 colors
+  bg2_bas_menu4_Pal, 23 colors
+  bg2_bas_jeu1_Pal, 3 colors
+  bg2_bas_jeu2_Pal, 3 colors
+  bg2_bas_jeu3_Pal, 3 colors
+  bg2_bas_jeu4_Pal, 3 colors
+  bg2_haut_jeu_commun_Pal, 75 colors
+  bg2_bas_commun_jeux_Pal, 14 colors
+  bg1_chiffres_lettres_grilles_Pal, 12 colors
+
+Converted in 0 minutes 0 seconds
+
+Finished !

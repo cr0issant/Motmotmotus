@@ -1,0 +1,787 @@
+12678 mots 6 lettres
+
+
+
+PA_OutputText(0, 1, 1, "%02d:%02d ", min, second);
+//%02d => toujours 2 chiffres, si < 10 alors ça affichera un zéro devant automatiquement, si > 99 ça affichera 100
+
+
+centieme = centieme + 1;	
+if (( min > 9 ) && ( second <= 9)) {PA_OutputText(1, 25 , 2 ,"%d:0%d ", min, second);}
+if (( min <= 9) && ( second <= 9)) {PA_OutputText(1, 25, 2, "0%d:0%d", min, second);}
+if (( min > 9 ) && ( second > 9 )) {PA_OutputText(1, 25, 2, "%d:%d", min, second);}
+if (( min <= 9) && ( second > 9)) {PA_OutputText(1, 25 , 2 ,"0%d:%d ", min, second);}
+
+if ( centieme > 30 ) {PA_OutputText(1, 27 , 2 ," ");}
+
+if ( second == 60 ) {min = min+1; second = 0; }
+if ( centieme == 60 ) {second = second+1 ;centieme = 0; } }
+
+
+
+					if ( PA_StylusInZone(176,64,192,80) )	{	x_nbrelettre = 176; y_nbrelettre = 64;
+											PA_SetSpriteXY(0, 0, x_nbrelettre, y_nbrelettre);
+										}
+
+					if ( PA_StylusInZone(176,80,192,96) )	{	x_nbrelettre = 176; y_nbrelettre = 80;
+											PA_SetSpriteXY(0, 0, x_nbrelettre, y_nbrelettre);
+										}
+
+					if ( PA_StylusInZone(176,96,192,112) )	{	x_nbrelettre = 176; y_nbrelettre = 96;
+											PA_SetSpriteXY(0, 0, x_nbrelettre, y_nbrelettre);
+										}
+
+					if ( PA_StylusInZone(176,112,192,128) )	{	x_nbrelettre = 176; y_nbrelettre = 112;
+											PA_SetSpriteXY(0, 0, x_nbrelettre, y_nbrelettre);
+										}
+
+
+
+
+
+Bruno dit :
+je vois 4 boutons radios
+Bruno dit :
+qui sont dans un GRAND RECTANGLE
+Matt dit :
+moi aussi là on est d'accord  
+Bruno dit :
+mes 4 carrés
+Bruno dit :
+donc
+Bruno dit :
+Etape 1
+Bruno dit :
+if ( PA_StylusInZone(176,64,191,127) )
+Bruno dit :
+on demande si on est dans cette zone
+Bruno dit :
+si on y est, on est forcément sur un des 4 boutons, tu est d'accord ?
+Matt dit :
+ouep
+Bruno dit :
+ok
+Bruno dit :
+reste a connaitre le numéro du bouton
+Matt dit :
+je vois ou tu ve en venir
+Bruno dit :
+on va bosser qu'avec les Y
+Matt dit :
+une pitite soustraction
+Bruno dit :
+pour commencer oui
+Bruno dit :
+et après division
+
+Bruno dit :
+	//qu'elle bouton ?
+	positionY = (Stylus.Y - 64) / 16;
+Bruno dit :
+retournera 0, 1, 2, ou 3
+Bruno dit :
+	//bouton radio activé
+	PA_SetSpriteXY(0, 0, 176, 64 + (positionY * 16) );
+Bruno dit :
+	//calcul du nb de lettre
+	nbre_lettres = positionY + 6;
+
+
+
+
+
+
+u8 grille_6_lettres [14*15] =
+
+{	
+		2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 10,
+//ligne 1	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+//ligne 2	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+//ligne 3	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+//ligne 4	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+//ligne 5	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+//ligne 6	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+//ligne 7	1, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 11,
+		1, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 11,
+};
+
+
+
+void afficher_grilles(void)
+{
+	u16 LeNumeroDuTile = 0;
+
+	//position 1 = colonne 1, ligne 1
+
+	u8 colonnes = 0;
+	u8 lignes = 0;
+	for (lignes=0;lignes<14;lignes++)
+	{
+		for (colonnes=0;colonnes<15;colonnes++)
+		{
+			LeNumeroDuTile = grille_6_lettres [colonnes + (lignes*15)];
+
+			//coin haut gauche (1,1)
+			PA_SetMapTileEx(1,2,1+colonnes,1+lignes,bg2_haut_jeu_1_joueur_commun_lettres_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+
+		}
+	}
+
+}
+
+
+
+0 a 31 (tes 32 colonnes)
+0 a 23 (tes 24 lignes)
+ça c'est pour l'affichage
+
+
+et pour calculer la position de ton Tile en 8x8
+Bruno dit :
+colonne + (ligne * 32)
+
+
+
+void afficher_mode_jeu(void)
+{
+	u16 LeNumeroDuTile = 0;
+
+	u8 colonnes = 0;
+	u8 lignes = 0;
+	if ( ( mode_de_jeu == 1 ) || ( mode_de_jeu == 2 ) )
+	{
+		for (lignes=0;lignes<8;lignes++)
+		{
+			for (colonnes=0;colonnes<10;colonnes++)
+			{
+				LeNumeroDuTile = AFFmode_1joueur [colonnes + (lignes*8)];
+				PA_SetMapTileEx(1,2,23+colonnes,9+lignes,bg2_haut_jeu_1_joueur_commun_lettres_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+	}
+}
+
+
+
+
+
+Bruno dit :
+Une boucle pour le trait a gauche
+Bruno dit :
+une boucle pour le trait en haut au milieu
+Bruno dit :
+une boucle pour le trait a droite
+Bruno dit :
+on affiche le coin haut gauche
+Bruno dit :
+on affiche le coin haut droite
+Bruno dit :
+et double boucle pour afficher les carré bleu
+Bruno dit :
+le tout calculé suivant le nombre de lettre
+Bruno dit :
+et ça te fera les 4 tableaux dans la même fonction
+Bruno dit :
+essai déjà pour une seule lettre
+Bruno dit :
+sans utiliser de tableau
+Bruno dit :
+tu as déjà les valeurs des tiles a afficher
+Bruno dit :
+tout est écrit dans tes tableaux
+Bruno dit :
+pas besoin de chercher pour ça
+Bruno dit :
+tu vois l'idée ?
+Matt dit :
+j'vois l'idée, mais là j'viens de m'appercevoir que je suis gavé à la bourre nivo boulot
+Matt dit :
+donc j'suis contraint de me déconnecté dsl
+
+
+
+u8 bord_G_grille [3*15] =
+
+{	
+		2, 3, 4, 
+/*ligne 1*/	1, 5, 6, 
+		1, 7, 8, 
+/*ligne 2*/	1, 5, 6, 
+		1, 7, 8,
+/*ligne 3*/	1, 5, 6, 
+		1, 7, 8,
+/*ligne 4*/	1, 5, 6,
+		1, 7, 8, 
+/*ligne 5*/	1, 5, 6,
+		1, 7, 8, 
+/*ligne 6*/	1, 5, 6,
+		1, 7, 8,
+/*ligne 7*/	1, 5, 6,
+		1, 7, 8
+};
+
+
+u8 bord_D_grille [3*15] =
+
+{	
+		4, 9, 10,
+/*ligne 1*/	5, 6, 11,
+		7, 8, 11,
+/*ligne 2*/	5, 6, 11,
+		7, 8, 11,
+/*ligne 3*/	5, 6, 11,
+		7, 8, 11,
+/*ligne 4*/	5, 6, 11,
+		7, 8, 11,
+/*ligne 5*/	5, 6, 11,
+		7, 8, 11,
+/*ligne 6*/	5, 6, 11,
+		7, 8, 11,
+/*ligne 7*/	5, 6, 11,
+		7, 8, 11
+};
+
+
+u8 case_type_grille_haut [2*2] =
+
+{	
+	5, 6,
+	7, 8
+};
+
+
+
+void afficher_grilles(void)
+{
+	u16 LeNumeroDuTile = 0;
+
+	PA_LoadSimpleBg(1,2,bg2_haut_jeu_commun_Tiles,Blank,BG_256X256,0,1);
+	PA_LoadBgPal(1, 2, (void*)bg2_haut_jeu_commun_Pal);
+
+	PA_LoadSimpleBg(0,2,bg2_bas_commun_jeux_Tiles,Blank,BG_256X256,0,1);
+	PA_LoadBgPal(0, 2, (void*)bg2_bas_commun_jeux_Pal);
+
+
+	u8 colonnes = 0;
+	u8 lignes = 0;
+	u8 caseX = 0;
+	u8 caseY = 0;
+
+	if ( nbre_lettres == 6)
+	{
+		for (caseX=0;caseX<14;caseX=+2)
+		{
+			for (caseY=0;caseY<12;caseY=+2)
+			{
+				for (lignes=0;lignes<2;lignes++)
+				{
+					for (colonnes=0;colonnes<2;colonnes++)
+					{
+						LeNumeroDuTile = case_type_grille_haut [colonnes + (lignes*2)];
+						PA_SetMapTileEx(1,2,4+colonnes+caseX,9+lignes+caseY,bg2_haut_jeu_commun_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+					}
+				}	
+			}
+		}
+	}
+}
+
+
+
+
+
+
+void afficher_grilles(void)
+{
+	u16 LeNumeroDuTile = 0;
+
+	//position 1 = colonne 1, ligne 1
+	PA_LoadSimpleBg(1,2,bg2_haut_jeu_commun_Tiles,Blank,BG_256X256,0,1);
+	PA_LoadBgPal(1, 2, (void*)bg2_haut_jeu_commun_Pal);
+
+	PA_LoadSimpleBg(0,2,bg2_bas_commun_jeux_Tiles,Blank,BG_256X256,0,1);
+	PA_LoadBgPal(0, 2, (void*)bg2_bas_commun_jeux_Pal);
+
+	u8 colonnes = 0;
+	u8 lignes = 0;
+	if ( nbre_lettres == 6)
+	{
+		afficher_mode_jeu();
+		for (lignes=0;lignes<15;lignes++)
+		{
+			for (colonnes=0;colonnes<14;colonnes++)
+			{
+				LeNumeroDuTile = grille_6_lettres [colonnes + (lignes*14)];
+				PA_SetMapTileEx(1,2,4+colonnes,9+lignes,bg2_haut_jeu_commun_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+		for (lignes=0;lignes<2;lignes++)
+		{
+			for (colonnes=0;colonnes<12;colonnes++)
+			{
+				LeNumeroDuTile = AFFcases_bas_6lettres [colonnes + (lignes*12)];
+				PA_SetMapTileEx(0,2,10+colonnes,6+lignes,bg2_bas_commun_jeux_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+	}
+
+	if ( nbre_lettres == 7)
+	{
+		afficher_mode_jeu();
+		for (lignes=0;lignes<15;lignes++)
+		{
+			for (colonnes=0;colonnes<16;colonnes++)
+			{
+				LeNumeroDuTile = grille_7_lettres [colonnes + (lignes*16)];
+				PA_SetMapTileEx(1,2,2+colonnes,9+lignes,bg2_haut_jeu_commun_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+		for (lignes=0;lignes<2;lignes++)
+		{
+			for (colonnes=0;colonnes<14;colonnes++)
+			{
+				LeNumeroDuTile = AFFcases_bas_7lettres [colonnes + (lignes*14)];
+				PA_SetMapTileEx(0,2,8+colonnes,6+lignes,bg2_bas_commun_jeux_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+	}
+
+	if ( nbre_lettres == 8)
+	{
+		afficher_mode_jeu();
+		for (lignes=0;lignes<15;lignes++)
+		{
+			for (colonnes=0;colonnes<18;colonnes++)
+			{
+				LeNumeroDuTile = grille_8_lettres [colonnes + (lignes*18)];
+				PA_SetMapTileEx(1,2,0+colonnes,9+lignes,bg2_haut_jeu_commun_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+		for (lignes=0;lignes<2;lignes++)
+		{
+			for (colonnes=0;colonnes<16;colonnes++)
+			{
+				LeNumeroDuTile = AFFcases_bas_8lettres [colonnes + (lignes*16)];
+				PA_SetMapTileEx(0,2,6+colonnes,6+lignes,bg2_bas_commun_jeux_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+	}
+
+	if ( nbre_lettres == 9)
+	{
+		afficher_mode_jeu();
+		for (lignes=0;lignes<15;lignes++)
+		{
+			for (colonnes=0;colonnes<20;colonnes++)
+			{
+				LeNumeroDuTile = grille_9_lettres [colonnes + (lignes*20)];
+				PA_SetMapTileEx(1,2,0+colonnes,9+lignes,bg2_haut_jeu_commun_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+		for (lignes=0;lignes<2;lignes++)
+		{
+			for (colonnes=0;colonnes<18;colonnes++)
+			{
+				LeNumeroDuTile = AFFcases_bas_9lettres [colonnes + (lignes*18)];
+				PA_SetMapTileEx(0,2,4+colonnes,6+lignes,bg2_bas_commun_jeux_Map[LeNumeroDuTile],0,0,0);//ecran, bg, x, y, elements
+			}
+		}	
+	}
+}
+
+
+Bruno dit :
+très bonne présentation
+Bruno dit :
+pense juste a rajouter un magenta sur le 1er carré
+Bruno dit :
+la tuile[0] en fait
+Bruno dit :
+sinon tu aurais un écran entier de carré beige
+Bruno dit :
+donc parfait pour les lettres
+Bruno dit :
+16x16
+Bruno dit :
+tu vas créer une fonction 
+void afficher_lettre(u8 colonne, u8 ligne, u8 couleur)
+Bruno dit :
+et suivant la couleur tu auras la position de début de ton Tile
+Bruno dit :
+le point de repart étant le carré haut gauche de chaque A
+
+
+
+afficher lettre position 0,0
+
+
+
+
+void afficher_lettre(u8 colonnes, u8 ligne)
+{
+	u8 lettreLi = 0;
+	u8 lettreCo = 1;
+	u8 couleur  = 0;
+
+	//si lettre = à A : lettreCo = 1 et lettreLi = 0
+
+	/*if ( lettre_touche == 1 ) 
+	{
+		lettreCo = 1; lettreLi = 0;
+	}*/
+	PA_SetMapTileEx(1,2,	5+colonnes ,	9,	bg2_chiffres_lettres_grilles_Map[ lettreCo   + (lettreLi+couleur)*32   ],0,0,0);
+	PA_SetMapTileEx(1,2,	5+colonnes+1,	9,	bg2_chiffres_lettres_grilles_Map[ lettreCo+1 + (lettreLi+couleur)*32   ],0,0,0);
+	PA_SetMapTileEx(1,2,	5+colonnes,	9+1,	bg2_chiffres_lettres_grilles_Map[ lettreCo   + (lettreLi+couleur+1)*32 ],0,0,0);
+	PA_SetMapTileEx(1,2,	5+colonnes+1,	9+1,	bg2_chiffres_lettres_grilles_Map[ lettreCo+1 + (lettreLi+couleur+1)*32 ],0,0,0);
+}
+
+
+
+
+
+Bruno dit :
+tu sauvegardes chaque lettre séparément
+Bruno dit :
+donc
+Bruno dit :
+char joueur[8];
+Bruno dit :
+et tu programmes un système de rang
+Bruno dit :
+rang = 0
+Bruno dit :
+alors si (joueur[0] == solution[0])
+ {
+ position[0] = 1;//bon
+}
+else
+{
+ position[0] = 0;//pas bon
+}
+Bruno dit :
+après tu peux faire une boucle avec tout ça
+Bruno dit :
+je part du principe qu'on a 3 tableaux
+Bruno dit :
+1 tableau char => avec le mot a trouver
+1 tableau char => avec la saisie du mot par le joueur
+1 tableau u8 => pour savoir ce qui est bien placé ou pas
+Bruno dit :
+for (i=0;i<nombrelettrejeu;i++)
+{
+(joueur[i] == solution[i])
+ {
+ position[i] = 1;//bon
+}
+else
+{
+ position[i] = 0;//pas bon
+}
+}
+Bruno dit :
+ce qui testera toutes les positions très rapidement
+Bruno dit :
+le tableau u8 pour savoir ce qui est bien placé n'est pas forcément utile si tu gére l'affichage de la lettre rouge ou normal dans la bonne section  
+Bruno dit :
+tu vois l'idée ?
+
+Bruno dit :
+truc méga court en fait
+Matt dit :
+ok ok, mais il y a un paramettre de plus, si par exemple dans le mot à trouvé il n'y a qu'une lettre 'E', mais le mot que tu écris a 2 'E', si les 2 sont mal placé alors un seul sera entouré de jaune, pour bien précisé qu'il n'y a qu'un seul 'E'
+Bruno dit :
+ah ok
+Bruno dit :
+va falloir améliorer mon idée
+Bruno dit :
+mais tu dois pouvoir simplifier
+Bruno dit :
+tout de même
+Matt dit :
+un truc qui m'avait bien agacé lol
+Matt dit :
+mais j'avais trouvé
+Bruno dit :
+ok
+Matt dit :
+mais il faut que je le retrouve lol
+Bruno dit :
+essai déjà :
+1) de rentrer la solution dans un CHAR solution[xx]
+2) de gérer l'ajout de lettre dans un autre CHAR avec système de rang
+3) déjà testé la routine pour les biens placés
+Bruno dit :
+une fois a ce niveau, restera plus grand chose
+Bruno dit :
+ne jette pas ton ancienne routine, faudrat que je réfléchisse dessus pour simplifier  
+Bruno dit :
+	if ( 	( (strcmp(l2,un)==0)&&(ok2==0) ) ||  ( (strcmp(l3,un)==0)&&(ok3==0) ) ||  ( (strcmp(l4,un)==0)&&(ok4==0) ) ||
+		( (strcmp(l5,un)==0)&&(ok5==0) ) ||  ( (strcmp(l6,un)==0)&&(ok6==0) ) )
+Bruno dit :
+ton paquet de IF, garde les
+Bruno dit :
+une fois le reste en place, je regarderai pour simplifier, je réfléchierai avec toi  
+Matt dit :
+j'ai retrouvé
+Matt dit :
+en premier j'comptais par étape le nombre de lettre du mot tapé :
+	for (j=0; j<3; j++)
+	{
+  	if ( mottrouve[j] == trois[0]) ntrois++;
+	}
+Puis le nombre de lettre du mot à trouvé :
+	for (j=0; j<strlen(motatrouve); j++)
+	{
+  	if ( motatrouve[j] == trois[0]) strois++;
+	}
+Matt dit :
+puis j'appliquais ma formule avec la comparaison à la fin mais qu'à partir de la 3eme lettre tapé vu que les 2 premières ne peuvent être identique :
+	if (  (	 ( (strcmp(l1,trois)==0)&&(ok1==0) ) ||  ( (strcmp(l2,trois)==0)&&(ok2==0) ) ||  ( (strcmp(l4,trois)==0)&&(ok4==0) ) ||
+		( (strcmp(l5,trois)==0)&&(ok5==0) ) ||  ( (strcmp(l6,trois)==0)&&(ok6==0) ) ) && ( ntrois <= strois )   )
+	{
+Bruno dit :
+ok
+Matt dit :
+j'ai grenouillassé un moment dessus
+Matt dit :
+pour trouvé comment faire
+Bruno dit :
+tu vas pouvoir utilisé ça pour tout les modes de jeu
+Bruno dit :
+en une seule fonction  
+Bruno dit :
+bosse bien
+Bruno dit :
+avec un TABLEAU de CHAR
+Bruno dit :
+ 
+Matt dit :
+et ça c'est cool
+Bruno dit :
+ 
+Bruno dit :
+faut juste bien préparer le terrain
+Matt dit :
+oui
+
+
+
+pioche_tirage6 = PA_RandMinMax(0, pioche_taille6 - 1);
+
+
+
+
+char pioche [126] [7] = {"ANIMAL","ANIMER","ANNEAU","ABIMER","AURORE","ADORER","ARMURE","AROMES","AVENIR","APERCU","AIMANT","ABRUTI","AMENDE","ABUSER","ALARME","ALERTE","AMUSER","ANCIEN",
+ "AGITER","AGNEAU","BOUTON","BARMAN","BONDIR","BONBON","BRULER","BONNET","BOUGIE","BLANCS","BETISE","BALAIS","BUREAU","BLONDE","BAVARD","BOUDER","BANANE","BIJOUX",
+ "BOUDER","BANDIT","BOUGER","BILLET","EBAHIE","EPICES","EMBUER","EMEUTE","EFFORT","EVIERS","EPIEUR","EFFETS","EVITER","ENNEMI","EFFROI","EXACTE","ENORME","EXAMEN",
+ "ECHECS","ETALER","EGARER","EMOTIF","ECHOIR":"ETANGS","EXCITE","EPONGE","EPOQUE","EGLISE","ECLAIR","EGOUTS","EMPIRE","EMPLOI","ETUDES","EXTASE","ERREUR","ESSAIM",
+ "MARIER","MENACE","MARINE","MINEUR","MACHIN","MADAME","MINUIT","MIRAGE","MENTIR","MIROIR","MORTEL","MOTARD","MOTEUR","MEUBLE","MANCHE","POUDRE","PIERRE","PAUVRE",
+ "POISON","POIVRE","PERDRE","PIGEON","PAYSAN","PERMIS","PECHER","PARDON","PILOTE","PIMENT","PEDALE","PONDRE","COLLER","CITRON","CACHER","CADEAU","COMPAS","COURIR",
+ "CLIMAT","CENTRE","CERCLE","CLONER","CHORAL","CALCUL","COPIER","COPINE","COBAYE","CHAINE","CARTON","CHANCE","CAMERA","CINEMA","CIRQUE","CHATON","CAMPER","COLERE"};
+
+
+
+
+				for (i=0;i<nbre_mots;i++)
+				{
+					for (j=0;j<nbre_lettres;j++)
+					{
+						if  ( mot_du_joueur[j] == dico6[i][j] )
+						{
+							nbre_lettre_ok++;
+	
+						}
+					}
+					if ( nbre_lettre_ok < nbre_lettre ) { nbre_lettre_ok=0; }
+				}
+
+				if ( nbre_lettre_ok < nbre_lettre ) { /*mot inconnu*/ }
+
+
+
+
+( strstr(DICO, mottrouve) ==0
+
+- caractère vers ASCII
+
+Pour obtenir le code d'un caractère, il faut affecter le caractère à une variable entière.
+
+int code;
+char lettre;
+
+lettre = 'A';
+code = lettre;
+
+printf("Le code ascii de %c est %d.\n",lettre,code);
+
+
+
+- ASCII vers caractère
+
+Pour obtenir le caractère correspondantn à un numéro il faut affecter l'entier à une variable caractère.
+
+int code;
+char lettre;
+
+code = 65;
+lettre = code;
+
+printf("Au code %d correspond la lettre %c.\n",code,lettre);
+
+
+***************************************
+
+
+FILE* fichier = NULL;
+
+
+fichier = fopen("/motscore.sav", "r"); 
+ 
+if (fichier != NULL)
+ {
+fclose(fichier); // On ferme le fichier
+ }
+
+else
+
+ {
+
+fichier = fopen("/motscore.sav", "w+");
+ 
+if (fichier != NULL)
+ {
+rewind(fichier); 
+fprintf(fichier,"20:00 30:00 40:00 50:00 60:00 70:00 80:00 90:00");	
+fclose(fichier); 
+ }
+ }
+
+fichier = fopen("/motscore.sav", "r"); 
+ 
+if (fichier == NULL)
+ {
+PA_OutputText(0, 3,23,"PAS DE SAUVEGARDE POSSIBLE");
+fclose(fichier);
+ }
+
+
+
+
+
+************************************************
+
+
+		 FILE* fichier = NULL;
+		 
+
+		if ( second > 9  ) PA_OutputText(0, 9, 6, " La partie est \n terminé ton temps \n est de %d:%d !!",min,second);
+		if ( second <= 9 ) PA_OutputText(0, 9, 6, " La partie est \n terminé ton temps \n est de %d:0%d !!",min,second);
+
+
+		fichier = fopen("/motscore.sav", "r+"); // On ouvre le fichier en mode lecture + écriture et on crée le fichier s'il n'existe pas
+   
+if (fichier != NULL)
+ {
+
+		rewind(fichier); // On s'assure d'être au début du fichier texte en retournant au début
+		fseek(fichier, 24, SEEK_SET);
+		
+		if (( min > 9 ) && ( second <= 9)) {fprintf(fichier,"%d:0%d ", min, second);}
+		if (( min <= 9) && ( second <= 9)) {fprintf(fichier,"0%d:0%d", min, second);}
+		if (( min > 9 ) && ( second > 9 )) {fprintf(fichier,"%d:%d", min, second);}
+		if (( min <= 9) && ( second > 9)) {fprintf(fichier,"0%d:%d ", min, second);}
+
+		fclose(fichier); // On ferme le fichier
+
+}
+
+
+********************************************************
+
+
+if ( PA_StylusInZone (4,170,80,190) && Stylus.Held) {	PA_ResetSpriteSys ();	PA_EasyBgLoad(	0, 3, scores); 
+
+		 FILE* fichier = NULL;
+		char chaine[6] = "";
+		
+		 
+		fichier = fopen("/motscore.sav", "r"); // On ouvre le fichier en mode lecture + écriture et on crée le fichier s'il n'existe pas
+ 
+if (fichier != NULL)
+ {
+
+		rewind(fichier); // On s'assure d'être au début du fichier texte en retournant au début
+			
+
+
+	fgets(chaine, 6, fichier);
+	PA_OutputText(0, 6, 7, "6 lettres : %s",chaine);
+
+
+	s32 q;
+	for (q = 1; q < 4; q++)	{
+
+	fseek(fichier, q*6, SEEK_SET);
+	fgets(chaine, 6, fichier);
+	PA_OutputText(0, 6, 7+q, "%d lettres : %s",6+q,chaine);
+
+					}
+
+
+	for (q = 1; q < 5; q++)	{
+	
+	fseek(fichier, 18+q*6, SEEK_SET);
+	fgets(chaine, 6, fichier);
+	PA_OutputText(0, 6, 15+q, "%d lettres : %s",5+q,chaine);
+
+					}
+
+
+		fclose(fichier); // On ferme le fichier
+ }
+else
+ {
+        goto toutdebut;
+  }
+
+  while (1)
+{      	PA_WaitForVBL();
+ if (PA_StylusInZone (190,160,255,190))
+		{  
+
+	goto toutdebut;
+		}
+ }
+
+
+
+
+
+	centieme+=1;
+	if ( centieme >= 60 ) {second+=1; centieme = 0; }
+	if ( second >= 60 )  { minute+=1; second=0;}
+
+
+	PA_SetMapTileEx(1,1,	11,	8,	bg1_chiffres_lettres_grilles_Map[ 2 +  (256) + minute/10  ],0,0,0);
+	PA_SetMapTileEx(1,1,	12,	8,	bg1_chiffres_lettres_grilles_Map[ 2 +  (256) + minute - minute/10*10  ],0,0,0);
+
+
+	PA_SetMapTileEx(1,1,	14,	8,	bg1_chiffres_lettres_grilles_Map[ 2 +  (256) + second/10  ],0,0,0);
+	PA_SetMapTileEx(1,1,	14,	8,	bg1_chiffres_lettres_grilles_Map[ 2 +  (256) + second - second/10*10  ],0,0,0);
+
+
+	PA_SetMapTileEx(1,1,	13,	8,	bg1_chiffres_lettres_grilles_Map[ 256+1  ],0,0,0);
+			if ( centieme >= 30 )
+	{
+	PA_SetMapTileEx(1,1,	13,	12,	bg1_chiffres_lettres_grilles_Map[ 0  ],0,0,0);
+	}			
+	
+
+
+
